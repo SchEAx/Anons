@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Anons Programı</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Türkçe Sesli Anons</p>
+        <h1>Anons Programı</h1>
+        <p class="muted">Cümleyi yaz, okut, kaydet; kayıtlı anonsları tek tıkla tekrar seslendir.</p>
+      </div>
+      <div class="speaker">🔊</div>
+    </header>
+
+    <section class="card">
+      <label for="announcementText">Anons metni</label>
+      <textarea id="announcementText" rows="5" placeholder="Örn: Sayın müşterilerimiz, mağazamız 10 dakika içinde kapanacaktır."></textarea>
+
+      <div class="grid controls">
+        <div>
+          <label for="voiceSelect">Ses</label>
+          <select id="voiceSelect"></select>
+        </div>
+        <div>
+          <label for="rateRange">Hız <span id="rateValue">1.0</span></label>
+          <input id="rateRange" type="range" min="0.6" max="1.4" step="0.1" value="1" />
+        </div>
+        <div>
+          <label for="pitchRange">Ton <span id="pitchValue">1.0</span></label>
+          <input id="pitchRange" type="range" min="0.6" max="1.4" step="0.1" value="1" />
+        </div>
+      </div>
+
+      <div class="buttons">
+        <button id="speakBtn" class="primary">Anonsu Oku</button>
+        <button id="saveBtn">Kaydet</button>
+        <button id="stopBtn" class="danger">Durdur</button>
+      </div>
+      <p id="status" class="status"></p>
+    </section>
+
+    <section class="card">
+      <div class="section-head">
+        <div>
+          <h2>Kayıtlı Anonslar</h2>
+          <p class="muted">Kayıtlar bu cihazda saklanır.</p>
+        </div>
+        <button id="clearBtn" class="ghost">Hepsini Sil</button>
+      </div>
+      <div id="savedList" class="saved-list"></div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
