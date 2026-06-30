@@ -1,60 +1,163 @@
 <!doctype html>
 <html lang="tr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Anons Programı</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anons Paneli</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <main class="app">
-    <header class="hero">
+  <div class="app">
+    <header class="topbar">
       <div>
-        <p class="eyebrow">Türkçe Sesli Anons</p>
-        <h1>Anons Programı</h1>
-        <p class="muted">Cümleyi yaz, okut, kaydet; kayıtlı anonsları tek tıkla tekrar seslendir.</p>
+        <div class="eyebrow">Profesyonel</div>
+        <h1>📢 Anons Paneli</h1>
+        <p>Yaz, kaydet, sıraya al ve Türkçe sesli anons yaptır.</p>
       </div>
-      <div class="speaker">🔊</div>
+      <div class="topActions">
+        <button id="themeBtn" class="ghost">🌙 Tema</button>
+        <button id="fullscreenBtn" class="ghost">⛶ Tam ekran</button>
+      </div>
     </header>
 
-    <section class="card">
-      <label for="announcementText">Anons metni</label>
-      <textarea id="announcementText" rows="5" placeholder="Örn: Sayın müşterilerimiz, mağazamız 10 dakika içinde kapanacaktır."></textarea>
+    <main class="grid">
+      <section class="card mainCard">
+        <div class="sectionTitle">
+          <h2>Anons Yaz</h2>
+          <span id="voiceStatus">Sesler yükleniyor...</span>
+        </div>
+        <textarea id="announcementText" placeholder="Örn: Plakası 07 ABC 123 olan aracın sahibi danışmaya beklenmektedir."></textarea>
 
-      <div class="grid controls">
-        <div>
-          <label for="voiceSelect">Ses</label>
-          <select id="voiceSelect"></select>
-        </div>
-        <div>
-          <label for="rateRange">Hız <span id="rateValue">1.0</span></label>
-          <input id="rateRange" type="range" min="0.6" max="1.4" step="0.1" value="1" />
-        </div>
-        <div>
-          <label for="pitchRange">Ton <span id="pitchValue">1.0</span></label>
-          <input id="pitchRange" type="range" min="0.6" max="1.4" step="0.1" value="1" />
-        </div>
-      </div>
+        <div class="quickTemplates" id="quickTemplates"></div>
 
-      <div class="buttons">
-        <button id="speakBtn" class="primary">Anonsu Oku</button>
-        <button id="saveBtn">Kaydet</button>
-        <button id="stopBtn" class="danger">Durdur</button>
-      </div>
-      <p id="status" class="status"></p>
-    </section>
-
-    <section class="card">
-      <div class="section-head">
-        <div>
-          <h2>Kayıtlı Anonslar</h2>
-          <p class="muted">Kayıtlar bu cihazda saklanır.</p>
+        <div class="controls">
+          <label>
+            Ses seçimi
+            <select id="voiceSelect"></select>
+          </label>
+          <label>
+            Kategori
+            <select id="categorySelect">
+              <option>Müşteri</option>
+              <option>Servis</option>
+              <option>Depo</option>
+              <option>Personel</option>
+              <option>Acil</option>
+              <option>Kampanya</option>
+              <option>Genel</option>
+            </select>
+          </label>
+          <label>
+            Hız <span id="rateValue">1.00</span>
+            <input id="rate" type="range" min="0.5" max="1.8" step="0.05" value="1" />
+          </label>
+          <label>
+            Ton <span id="pitchValue">1.00</span>
+            <input id="pitch" type="range" min="0.5" max="2" step="0.05" value="1" />
+          </label>
+          <label>
+            Ses <span id="volumeValue">1.00</span>
+            <input id="volume" type="range" min="0" max="1" step="0.05" value="1" />
+          </label>
+          <label>
+            Tekrar
+            <input id="repeatCount" type="number" min="1" max="10" value="1" />
+          </label>
+          <label>
+            Tekrar arası sn.
+            <input id="repeatDelay" type="number" min="0" max="60" value="2" />
+          </label>
+          <label class="checkRow">
+            <input id="chimeBefore" type="checkbox" checked /> Anons öncesi zil
+          </label>
         </div>
-        <button id="clearBtn" class="ghost">Hepsini Sil</button>
-      </div>
-      <div id="savedList" class="saved-list"></div>
-    </section>
-  </main>
+
+        <div class="buttonRow">
+          <button id="speakBtn" class="primary">▶️ Oku</button>
+          <button id="pauseBtn">⏸️ Duraklat</button>
+          <button id="resumeBtn">⏯️ Devam</button>
+          <button id="stopBtn" class="danger">⏹️ Durdur</button>
+        </div>
+
+        <div class="buttonRow">
+          <button id="saveBtn">💾 Anonsu Kaydet</button>
+          <button id="queueBtn">➕ Sıraya Ekle</button>
+          <button id="favoriteBtn">⭐ Favorilere Ekle</button>
+          <button id="clearTextBtn" class="ghost">🧹 Temizle</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="sectionTitle">
+          <h2>Hazır Anonslar</h2>
+          <button id="seedBtn" class="small">↻ Örnekleri yükle</button>
+        </div>
+        <div class="filters">
+          <input id="searchSaved" placeholder="Anons ara..." />
+          <select id="filterCategory"><option value="all">Tüm kategoriler</option></select>
+        </div>
+        <div id="savedList" class="list"></div>
+      </section>
+
+      <section class="card">
+        <div class="sectionTitle">
+          <h2>Anons Sırası</h2>
+          <span id="queueCount">0 anons</span>
+        </div>
+        <div class="buttonRow compact">
+          <button id="playQueueBtn" class="primary">▶️ Sırayı Oku</button>
+          <button id="clearQueueBtn" class="danger">🗑️ Sırayı Sil</button>
+        </div>
+        <div id="queueList" class="list"></div>
+      </section>
+
+      <section class="card">
+        <div class="sectionTitle">
+          <h2>Otomatik Anons</h2>
+          <span id="autoStatus">Kapalı</span>
+        </div>
+        <textarea id="autoText" placeholder="Belirli aralıklarla okunacak anons..."></textarea>
+        <div class="controls two">
+          <label>Aralık dakika<input id="autoMinutes" type="number" min="1" value="30" /></label>
+          <label>Tekrar<input id="autoRepeat" type="number" min="1" max="10" value="1" /></label>
+        </div>
+        <div class="buttonRow compact">
+          <button id="startAutoBtn" class="primary">⏱️ Başlat</button>
+          <button id="stopAutoBtn" class="danger">Durdur</button>
+        </div>
+        <p class="hint">Tarayıcı açık kaldığı sürece çalışır. Telefon/tablet ekranı kilitlenirse durabilir.</p>
+      </section>
+
+      <section class="card">
+        <div class="sectionTitle"><h2>Favoriler</h2></div>
+        <div id="favoriteList" class="list"></div>
+      </section>
+
+      <section class="card">
+        <div class="sectionTitle">
+          <h2>Geçmiş</h2>
+          <button id="clearHistoryBtn" class="small danger">Temizle</button>
+        </div>
+        <div id="historyList" class="list"></div>
+      </section>
+
+      <section class="card wide">
+        <div class="sectionTitle"><h2>Yedekleme</h2></div>
+        <div class="buttonRow compact">
+          <button id="exportBtn">⬇️ Yedek Al</button>
+          <label class="fileBtn">⬆️ Yedek Yükle<input id="importInput" type="file" accept="application/json" hidden /></label>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <template id="itemTemplate">
+    <div class="item">
+      <div class="itemText"></div>
+      <div class="itemMeta"></div>
+      <div class="itemActions"></div>
+    </div>
+  </template>
 
   <script src="app.js"></script>
 </body>
