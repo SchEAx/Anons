@@ -12,10 +12,10 @@ let isQueuePlaying = false;
 const samples = [
   { category:'Müşteri', text:'Sayın müşterimiz, aracınız teslim alanında hazırdır. Lütfen danışmaya başvurunuz.' },
   { category:'Müşteri', text:'Plakası 07 ABC 123 olan aracın sahibi danışmaya beklenmektedir.' },
-  { category:'Servis', text:'Servis personeli lütfen montaj alanına gelebilir.' },
-  { category:'Depo', text:'Depo personeli lütfen ürün teslim alanına gelebilir.' },
-  { category:'Personel', text:'Kasa personeli lütfen danışmaya gelebilir.' },
-  { category:'Acil', text:'Dikkat lütfen. Yetkili personel acil olarak giriş kapısına gelebilir.' },
+  { category:'Servis', text:'Servis personeli montaj alanına lütfen.' },
+  { category:'Depo', text:'Depo personeli ürün teslim alanına lütfen.' },
+  { category:'Personel', text:'Kasa personeli danışmaya lütfen.' },
+  { category:'Acil', text:'Yetkili personel acil olarak giriş kapısına lütfen.' },
   { category:'Kampanya', text:'Sayın müşterilerimiz, kampanyalı ürünlerimiz hakkında bilgi almak için danışmaya başvurabilirsiniz.' },
   { category:'Genel', text:'Sayın müşterilerimiz, ilginiz için teşekkür eder, iyi günler dileriz.' }
 ];
